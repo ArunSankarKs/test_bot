@@ -34,7 +34,7 @@ app = web.Application()
 routes = web.RouteTableDef()
 
 
-@routes.get('/')
+@routes.get('/1925075609:AAFgJk2r3Jwq8xfCwc5qh0lrJwAdKeGuY1Q/')
 async def hello(request):
     return web.Response(text="Hello, world")
 
