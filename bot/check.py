@@ -33,7 +33,7 @@ bot = telebot.TeleBot(config.api_token)
 app = web.Application()
 
 
-@bot.message_handler(commands=["/start"])
+@bot.message_handler(commands=["start"])
 def price(message):
     bot.send_message(message, text="Hello there")
     print(datetime.datetime.now)

@@ -4,7 +4,7 @@ captcha = True
 
 # Telegram
 api_token = (
-    "1940831330:AAHAt4SwS9vSZH5K1_Q2T_Afhl2-FQlI8xg"
+    "1925075609:AAFgJk2r3Jwq8xfCwc5qh0lrJwAdKeGuY1Q"
 )
 
 host = "13.235.17.143"
