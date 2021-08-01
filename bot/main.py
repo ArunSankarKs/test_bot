@@ -31,6 +31,15 @@ WEBHOOK_URL_PATH = "/{}/".format(config.api_token)
 bot = telebot.TeleBot(config.api_token)
 
 app = web.Application()
+routes = web.RouteTableDef()
+
+
+@routes.get('/')
+async def hello(request):
+    return web.Response(text="Hello, world")
+
+
+app.add_routes([web.get('/', hello)])
 
 
 def get_connection():
@@ -164,8 +173,8 @@ def handle_text(message):
 
 @bot.message_handler(
     func=lambda message: message.chat.type == "private"
-    and message.from_user.id not in airdrop_users
-    and message.text == "🚀 Join Airdrop"
+                         and message.from_user.id not in airdrop_users
+                         and message.text == "🚀 Join Airdrop"
 )
 def handle_text(message):
     bot.send_chat_action(message.chat.id, "typing")
@@ -197,8 +206,8 @@ def handle_text(message):
 
 @bot.message_handler(
     func=lambda message: message.chat.type == "private"
-    and message.from_user.id in airdrop_users
-    and message.text == "💼 View Wallet Address"
+                         and message.from_user.id in airdrop_users
+                         and message.text == "💼 View Wallet Address"
 )
 def handle_text(message):
     connection = get_connection()
