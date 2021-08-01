@@ -4,10 +4,10 @@ captcha = True
 
 # Telegram
 api_token = (
-    "<YOUR BOT TOKEN>"
+    "1940831330:AAHAt4SwS9vSZH5K1_Q2T_Afhl2-FQlI8xg"
 )
 
-host = ""
+host = "13.235.17.143"
 
 log_channel = 0  # Channel ID. Example: -1001355597767
 admins = []  # Telegram User ID's. Admins are able to execute command "/airdroplist"

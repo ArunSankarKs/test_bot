@@ -22,7 +22,10 @@ WEBHOOK_HOST = config.host
 WEBHOOK_PORT = 8443  # 443, 80, 88 or 8443 (port needs to be 'open')
 WEBHOOK_LISTEN = "0.0.0.0"  # In some VPS you may need to put here the IP addr.
 
-WEBHOOK_URL_BASE = "http://{}:{}".format(WEBHOOK_HOST, WEBHOOK_PORT)
+WEBHOOK_SSL_CERT = "./webhook_cert.pem"  # Path to the ssl certificate
+WEBHOOK_SSL_PRIV = "./webhook_pkey.pem"  # Path to the ssl private key
+
+WEBHOOK_URL_BASE = "https://{}:{}".format(WEBHOOK_HOST, WEBHOOK_PORT)
 WEBHOOK_URL_PATH = "/{}/".format(config.api_token)
 
 bot = telebot.TeleBot(config.api_token)
@@ -161,8 +164,8 @@ def handle_text(message):
 
 @bot.message_handler(
     func=lambda message: message.chat.type == "private"
-                         and message.from_user.id not in airdrop_users
-                         and message.text == "🚀 Join Airdrop"
+    and message.from_user.id not in airdrop_users
+    and message.text == "🚀 Join Airdrop"
 )
 def handle_text(message):
     bot.send_chat_action(message.chat.id, "typing")
@@ -194,8 +197,8 @@ def handle_text(message):
 
 @bot.message_handler(
     func=lambda message: message.chat.type == "private"
-                         and message.from_user.id in airdrop_users
-                         and message.text == "💼 View Wallet Address"
+    and message.from_user.id in airdrop_users
+    and message.text == "💼 View Wallet Address"
 )
 def handle_text(message):
     connection = get_connection()
@@ -406,12 +409,17 @@ bot.remove_webhook()
 
 # Set webhook
 bot.set_webhook(
-    url=WEBHOOK_URL_BASE + WEBHOOK_URL_PATH,
+    url=WEBHOOK_URL_BASE + WEBHOOK_URL_PATH, certificate=open(WEBHOOK_SSL_CERT, "r")
 )
+
+# Build ssl context
+context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
+context.load_cert_chain(WEBHOOK_SSL_CERT, WEBHOOK_SSL_PRIV)
 
 # Start aiohttp server
 web.run_app(
     app,
     host=WEBHOOK_LISTEN,
     port=WEBHOOK_PORT,
+    ssl_context=context,
 )
