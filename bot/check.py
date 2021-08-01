@@ -20,9 +20,6 @@ import config
 bot = telebot.TeleBot(config.api_token)
 
 
-
-
-
 def get_connection():
     connection = pymysql.connect(
         host=config.mysql_host,
@@ -120,7 +117,7 @@ def handle_text(message):
             bot.send_message(
                 message.chat.id,
                 config.texts["start_2"].format(message.from_user.first_name)
-                + "[» Source Code](https://github.com/fabston/Telegram-Airdrop-Bot).",
+                ,
                 parse_mode="Markdown",
                 disable_web_page_preview=True,
                 reply_markup=airdropkeyboard,
@@ -129,7 +126,7 @@ def handle_text(message):
             bot.send_message(
                 message.chat.id,
                 config.texts["airdrop_start"]
-                + "[» Source Code](https://github.com/fabston/Telegram-Airdrop-Bot).",
+                ,
                 parse_mode="Markdown",
                 disable_web_page_preview=True,
             )
@@ -137,7 +134,7 @@ def handle_text(message):
             bot.send_message(
                 message.chat.id,
                 config.texts["airdrop_max_cap"]
-                + "[» Source Code](https://github.com/fabston/Telegram-Airdrop-Bot).",
+                ,
                 parse_mode="Markdown",
                 disable_web_page_preview=True,
             )
@@ -145,7 +142,7 @@ def handle_text(message):
             bot.send_message(
                 message.chat.id,
                 config.texts["start_1"].format(message.from_user.first_name)
-                + "[» Source Code](https://github.com/fabston/Telegram-Airdrop-Bot).",
+                ,
                 parse_mode="Markdown",
                 disable_web_page_preview=True,
                 reply_markup=defaultkeyboard,
